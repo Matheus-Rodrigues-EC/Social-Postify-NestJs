@@ -1,13 +1,18 @@
 import { IsString, IsNotEmpty, IsUrl } from "class-validator";
 
-export class createMediaDTO {
+export class createPostDTO {
+
     @IsString({ message: "All fields are required!"})
     @IsNotEmpty({ message: "All fields are required!"})
-    title: string;
+    title: string
 
     @IsString({ message: "All fields are required!"})
     @IsNotEmpty({ message: "All fields are required!"})
     @IsUrl()
-    username: string;
+    text: string
 
+    @IsString({ message: "All fields are required!"})
+    @IsNotEmpty({ message: "All fields are required!"})
+    @IsUrl()
+    image?: string
 }

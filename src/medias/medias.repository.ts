@@ -30,6 +30,6 @@ export class MediasRepository {
     }
 
     async deleteMediaId(id: number){
-        await this.prisma.media.delete({ where: {id: id}})
+        await this.prisma.media.delete({ where: {id: Number(id)}})
     }
 }
