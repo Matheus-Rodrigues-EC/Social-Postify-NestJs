@@ -7,11 +7,16 @@ export class MediasRepository {
     constructor(private readonly prisma: PrismaService) { }
 
     async createMedia(data: createMediaDTO){
-        await this.prisma.media.create({data: data})
+        return await this.prisma.media.create({data: data})
     }
 
     async readMedia(data: createMediaDTO){
-        const media = await this.prisma.media.findFirst({where: {title: data.title, username: data.username}});
+        const media = await this.prisma.media.findFirst({
+            where: {
+                title: data.title, 
+                username: data.username
+            }
+        });
         return media;
     }
 
@@ -26,10 +31,18 @@ export class MediasRepository {
     }
 
     async updateMediaId(id: number, data: createMediaDTO){
-        await this.prisma.media.update({ where: {id: Number(id)}, data: {title: data.title, username: data.username}})
+        return await this.prisma.media.update({ 
+            where: {
+                id: Number(id)
+            }, 
+            data: {
+                title: data.title, 
+                username: data.username
+            }
+        })
     }
 
     async deleteMediaId(id: number){
-        await this.prisma.media.delete({ where: {id: Number(id)}})
+        return await this.prisma.media.delete({ where: {id: Number(id)}})
     }
 }

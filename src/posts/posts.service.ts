@@ -6,6 +6,10 @@ import { createPostDTO } from './dtos/postDTO';
 export class PostsService {
     constructor(private readonly postsRepository: PostsRepository) {}
 
+    getHealthPosts(): string{
+        return "Posts Route is Ok";
+    }
+
     async createPost(data: createPostDTO){
         if((!data.title) || (!data.text)) throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
         await this.postsRepository.createPost(data);

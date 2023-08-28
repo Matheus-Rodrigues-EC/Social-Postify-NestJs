@@ -6,6 +6,13 @@ import { createPostDTO } from './dtos/postDTO';
 export class PostsController {
     constructor(private readonly postsService: PostsService) {}
 
+    @Get('/health')
+    @HttpCode(200)
+    getHealth() {
+        return this.postsService.getHealthPosts();
+    }
+    
+
     @Post('/')
     @HttpCode(201)
     createPost(@Body() body: createPostDTO){
@@ -31,7 +38,7 @@ export class PostsController {
     }
 
     @Delete(':id')
-    @HttpCode(202)
+    @HttpCode(204)
     deletePostId(@Param("id") id: number){
         return this.postsService.deletePostId(Number(id));
     }

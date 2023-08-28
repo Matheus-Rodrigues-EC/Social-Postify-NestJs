@@ -6,6 +6,12 @@ import { createMediaDTO } from './dtos/mediaDTO';
 export class MediasController {
     constructor(private readonly mediasService: MediasService){};
 
+    @Get('/health')
+    @HttpCode(200)
+    getHealth() {
+        return this.mediasService.getHealthMedia();
+    }
+    
     @Post('/')
     @HttpCode(201)
     postMedia(@Body() body: createMediaDTO)  {
@@ -31,7 +37,7 @@ export class MediasController {
     }
 
     @Delete(':id')
-    @HttpCode(202)
+    @HttpCode(204)
     deleteMediaId(@Param("id") id: number){
         return this.mediasService.deleteMediaId(Number(id));
     }

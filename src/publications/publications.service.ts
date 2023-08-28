@@ -12,6 +12,9 @@ export class PublicationsService {
         private readonly mediasRepository: MediasRepository
     ) {}
     
+    getHealthPublications(): string{
+        return "Publications Route is Ok";
+    }
 
     async createPublication(data: createPublicationDTO){
         if((!data.mediaId) || (!data.postId) || (!data.date)) throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);

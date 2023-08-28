@@ -6,6 +6,12 @@ import { createPublicationDTO } from './dtos/publicationDTO';
 export class PublicationsController {
     constructor(private readonly publicationsService: PublicationsService){}
 
+    @Get('/health')
+    @HttpCode(200)
+    getHealth() {
+        return this.publicationsService.getHealthPublications();
+    }
+
     @Post('/')
     @HttpCode(201)
     createPublication(@Body() body: createPublicationDTO){
@@ -31,7 +37,7 @@ export class PublicationsController {
     }
 
     @Delete(':id')
-    @HttpCode(202)
+    @HttpCode(204)
     deletePublicationId(@Param('id') id: number){
         return this.publicationsService.deletePublicationId(Number(id));
     }

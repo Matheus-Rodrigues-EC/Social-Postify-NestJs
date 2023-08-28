@@ -6,11 +6,16 @@ import { createMediaDTO } from './dtos/mediaDTO';
 export class MediasService {
     constructor(private readonly mediasRepository: MediasRepository) {}
 
+    getHealthMedia(): string{
+        return "Medias Route is Ok";
+    }
+
     async createMedia(data: createMediaDTO){
         if((!data.title) || (!data.username)) throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
         const media = await this.mediasRepository.readMedia(data);
-        if(media) throw new HttpException('Conflict', HttpStatus.CONFLICT);
-        await this.mediasRepository.createMedia(data);
+        if(!media) return await this.mediasRepository.createMedia(data);
+        if((media.title === data.title) && (media.username === data.username)) throw new HttpException('Conflict', HttpStatus.CONFLICT);
+        return await this.mediasRepository.createMedia(data);
     }
 
     async readMedias(){
@@ -29,7 +34,7 @@ export class MediasService {
         if(!exists) throw new HttpException('Not Found', HttpStatus.NOT_FOUND)
 
         const verifyConflict = await this.mediasRepository.readMedia(data);
-        if(verifyConflict) throw new HttpException('Conflict', HttpStatus.CONFLICT);
+        if((verifyConflict.title === data.title) && (verifyConflict.username === data.username)) throw new HttpException('Conflict', HttpStatus.CONFLICT);
 
         const media = await this.mediasRepository.updateMediaId(Number(id), data);
         return media;
